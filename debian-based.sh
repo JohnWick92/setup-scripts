@@ -86,6 +86,14 @@ install_flatpaks() {
 	flatpak install flathub app.ytmdesktop.ytmdesktop
 }
 
+install_meslo() {
+	cd /tmp
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
+	unzip Meslo.zip
+	mkdir /usr/share/fonts/meslo
+	sudo mv *.ttf /usr/share/fonts/meslo
+}
+
 last_things() {
 	echo "To export path to fish enter in fish shell and run this commands:"
 	echo "fish_add_path ~/.local/bin"
@@ -104,6 +112,7 @@ install_lazyvim
 install_alacritty
 install_flatpaks
 install_docker
+install_meslo
 install_asdf
 ./debian-base-fish.sh
 last_things

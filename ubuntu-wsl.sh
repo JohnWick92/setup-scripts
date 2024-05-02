@@ -42,6 +42,14 @@ install_lazyvim() {
 	git clone https://github.com/JohnWick92/my-lazyvim ~/.config/nvim/
 }
 
+install_meslo() {
+	cd /tmp
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
+	unzip Meslo.zip
+	mkdir /usr/share/fonts/meslo
+	sudo mv *.ttf /usr/share/fonts/meslo
+}
+
 last_things() {
 	echo "To export path to fish enter in fish shell and run this commands:"
 	echo "To fish be your default shell you need to reboot the machine"
