@@ -17,7 +17,6 @@ install_base_dev() {
 }
 
 install_rust_alternatives() {
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 	cargo install ripgrep zoxide fd-find tealdeer procs git-delta bat exa du-dust tokei ytop rmesg grex
 	echo "zoxide init fish | source" >>~/.config/fish/config.fish
 }
@@ -38,14 +37,14 @@ install_lazyvim() {
 	cd /tmp/
 	git clone https://github.com/neovim/neovim && cd neovim
 	make CMAKE_BUILD_TYPE=Release
-	make install
+	sudo make install
 	git clone https://github.com/JohnWick92/my-lazyvim ~/.config/nvim/
 }
 
 install_docker() {
 	# Add Docker's official GPG key:
-	sudo apt-get update
-	sudo apt-get install ca-certificates curl
+	sudo apt update
+	sudo apt install -y ca-certificates curl
 	sudo install -m 0755 -d /etc/apt/keyrings
 	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 	sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -55,8 +54,8 @@ install_docker() {
 		"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
 		sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
-	sudo apt-get update
-	sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+	sudo apt update
+	sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 	sudo groupadd docker
 	sudo usermod -aG docker $USER
 	newgrp docker
@@ -64,7 +63,7 @@ install_docker() {
 }
 
 install_alacritty() {
-	sudo apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
+	sudo apt install -y cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
 	cd /tmp && git clone https://github.com/alacritty/alacritty.git && cd alacritty
 	cargo build --release
 	sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
@@ -77,8 +76,8 @@ install_alacritty() {
 }
 
 install_flatpaks() {
-	sudo apt install flatpak
-	sudo apt install gnome-software-plugin-flatpak
+	sudo apt install -y flatpak
+	sudo apt install -y gnome-software-plugin-flatpak
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	flatpak install flathub com.bitwarden.desktop
 	flatpak install flathub app.ytmdesktop.ytmdesktop

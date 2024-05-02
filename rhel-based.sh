@@ -17,7 +17,6 @@ install_base_dev() {
 }
 
 install_rust_alternatives() {
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 	cargo install ripgrep zoxide fd-find tealdeer procs git-delta bat exa du-dust tokei ytop rmesg grex
 	echo "zoxide init fish | source" >>~/.config/fish/config.fish
 }
@@ -38,7 +37,7 @@ install_lazyvim() {
 	cd /tmp/
 	git clone https://github.com/neovim/neovim && cd neovim
 	make CMAKE_BUILD_TYPE=Release
-	make install
+	sudo make install
 	git clone https://github.com/JohnWick92/my-lazyvim ~/.config/nvim/
 }
 
@@ -55,7 +54,7 @@ install_docker() {
 		docker-engine
 	sudo dnf -y install dnf-plugins-core
 	sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-	sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+	sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 	sudo groupadd docker
 	sudo usermod -aG docker $USER
 	newgrp docker
@@ -64,7 +63,7 @@ install_docker() {
 
 install_alacritty() {
 	sudo dnf install -y cmake freetype-devel fontconfig-devel libxcb-devel libxkbcommon-devel xcb-util-devel
-	sudo dnf group install "Development Tools"
+	sudo dnf group install -y "Development Tools"
 	cd /tmp && git clone https://github.com/alacritty/alacritty.git && cd alacritty
 	cargo build --release
 	sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
@@ -95,12 +94,12 @@ last_things() {
 check_root
 fetch_updates
 install_base_dev
-install_asdf
-./rhel-based-fish.sh
 install_rust_alternatives
 install_starship
 install_lazyvim
 install_alacritty
 install_flatpaks
 install_docker
+install_asdf
+./rhel-based-fish.sh
 last_things
