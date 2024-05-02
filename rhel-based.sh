@@ -64,8 +64,7 @@ install_docker() {
 }
 
 install_alacritty() {
-	sudo dnf install -y cmake freetype-devel fontconfig-devel libxcb-devel libxkbcommon-devel xcb-util-devel
-	sudo dnf group install -y "Development Tools"
+	sudo dnf install -y cmake freetype-devel fontconfig-devel libxcb-devel libxkbcommon-devel g++
 	cd /tmp
 	git clone https://github.com/alacritty/alacritty.git
 	cd alacritty
