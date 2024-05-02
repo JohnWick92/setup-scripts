@@ -23,7 +23,7 @@ install_rust_alternatives() {
 
 install_asdf() {
 	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
-	sed '1 s/^/source ~/.asdf/asdf.fish\n/' ~/.config/fish/config.fish
+	echo 'source ~/.asdf/asdf.fish' | cat - ~/.config/fish/config.fish >temp && temp ~/.config/fish/config.fish
 	mkdir -p ~/.config/fish/completions
 	and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 }
@@ -35,7 +35,8 @@ install_starship() {
 
 install_lazyvim() {
 	cd /tmp/
-	git clone https://github.com/neovim/neovim && cd neovim
+	git clone https://github.com/neovim/neovim
+	cd neovim
 	make CMAKE_BUILD_TYPE=Release
 	sudo make install
 	git clone https://github.com/JohnWick92/my-lazyvim ~/.config/nvim/
@@ -64,7 +65,9 @@ install_docker() {
 install_alacritty() {
 	sudo dnf install -y cmake freetype-devel fontconfig-devel libxcb-devel libxkbcommon-devel xcb-util-devel
 	sudo dnf group install -y "Development Tools"
-	cd /tmp && git clone https://github.com/alacritty/alacritty.git && cd alacritty
+	cd /tmp
+	git clone https://github.com/alacritty/alacritty.git
+	cd alacritty
 	cargo build --release
 	sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
 	sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
@@ -84,7 +87,6 @@ install_flatpaks() {
 last_things() {
 	echo "To export path to fish enter in fish shell and run this commands:"
 	echo "fish_add_path ~/.local/bin"
-	echo "fish_add_path ~/.cargo/bin"
 	echo "To fish be your default shell you need to reboot the machine"
 	echo "Open neovim wait until it download the plugins close and run it again"
 	echo "See the git-delta to set up delta to your git config"
