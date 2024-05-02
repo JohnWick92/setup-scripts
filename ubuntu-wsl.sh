@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+cwd=$PWD
+
 check_root() {
 	if [ "$EUID" -eq 0 ]; then
 		echo "Please do not run as root"
@@ -66,5 +68,6 @@ install_rust_alternatives
 install_starship
 install_lazyvim
 install_asdf
+cd "$cwd"
 ./ubuntu-wsl-fish.sh
 last_things

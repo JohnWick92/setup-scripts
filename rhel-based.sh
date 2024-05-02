@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+cwd=$PWD
+
 check_root() {
 	if [ "$EUID" -eq 0 ]; then
 		echo "Please do not run as root"
@@ -114,5 +116,6 @@ install_flatpaks
 install_docker
 install_meslo
 install_asdf
+cd "$cwd"
 ./rhel-based-fish.sh
 last_things
