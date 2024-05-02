@@ -13,7 +13,6 @@ fetch_updates() {
 
 install_base_dev() {
 	sudo dnf -y install ninja-build cmake gcc make unzip gettext curl glibc-gconv-extra git fish
-	chsh -s /usr/bin/fish
 }
 
 install_rust_alternatives() {
@@ -103,6 +102,8 @@ last_things() {
 	echo "Open neovim wait until it download the plugins close and run it again"
 	echo "See the git-delta to set up delta to your git config"
 	echo "That's all thanks for using this script :)"
+	echo "Type your password to confirm fish as your default shell then reboot the machine"
+	chsh -s /usr/bin/fish
 }
 
 check_root
