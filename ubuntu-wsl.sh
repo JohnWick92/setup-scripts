@@ -23,7 +23,7 @@ install_rust_alternatives() {
 
 install_asdf() {
 	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
-	echo 'source ~/.asdf/asdf.fish' | cat - ~/.config/fish/config.fish >temp && temp ~/.config/fish/config.fish
+	echo 'source ~/.asdf/asdf.fish' | cat - ~/.config/fish/config.fish >temp && mv temp ~/.config/fish/config.fish
 	mkdir -p ~/.config/fish/completions
 	and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 }
