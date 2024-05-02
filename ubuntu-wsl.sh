@@ -17,6 +17,8 @@ install_base_dev() {
 }
 
 install_rust_alternatives() {
+	curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+	source ~/.cargo/env
 	cargo install ripgrep zoxide fd-find tealdeer procs git-delta bat exa du-dust tokei ytop rmesg grex
 	echo "zoxide init fish | source" >>~/.config/fish/config.fish
 }

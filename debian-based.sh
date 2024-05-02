@@ -17,6 +17,8 @@ install_base_dev() {
 }
 
 install_rust_alternatives() {
+	curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+	source ~/.cargo/env
 	cargo install ripgrep zoxide fd-find tealdeer procs git-delta bat exa du-dust tokei ytop rmesg grex
 	echo "zoxide init fish | source" >>~/.config/fish/config.fish
 }
@@ -35,6 +37,10 @@ install_starship() {
 
 install_lazyvim() {
 	cd /tmp/
+	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+	tar xf lazygit.tar.gz lazygit
+	sudo install lazygit /usr/local/bin
 	git clone https://github.com/neovim/neovim
 	cd neovim
 	make CMAKE_BUILD_TYPE=Release

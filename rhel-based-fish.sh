@@ -1,6 +1,7 @@
 #!/usr/bin/fish
 
 function install_base_languages -d "install base languages"
+fish_add_path ~/.cargo/bin/
 asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
 asdf plugin add java https://github.com/halcyon/asdf-java.git
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
