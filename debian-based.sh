@@ -93,7 +93,7 @@ install_wezterm() {
         { family = "IosevkaTerm Nerd Font", scale = 1.2}
     })
     config.window_background_opacity = 0.9
-    config.leader = {key = "a", mods = "CTRL", timeout_milliseconds = 1000}
+    config.leader = {key = ";", mods = "CTRL", timeout_milliseconds = 1000}
     config.keys = {
         {key = ";", mods = "LEADER | CTRL", action = act.SendKey { key = "a", mods = "CTRL"}},
         { key = "s", mods = "LEADER", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
