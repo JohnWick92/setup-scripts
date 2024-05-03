@@ -80,6 +80,7 @@ install_wezterm() {
 	curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
 	echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
 	sudo apt update && sudo apt install -y wezterm
+	mkdir ~/.config/wezterm
 	echo 'local wezterm = require("wezterm")
     local act = wezterm.action
     local config = {}
@@ -103,7 +104,7 @@ install_wezterm() {
         {key = "t", mods = "LEADER", action = act.SpawnTab "CurrentPaneDomain"},
     }
     -- Uncomment this if you are running in wsl
-    config.default_domain = "WSL:Ubuntu"
+    -- config.default_domain = "WSL:Ubuntu"
     return config' >~/.config/wezterm/wezterm.lua
 }
 
