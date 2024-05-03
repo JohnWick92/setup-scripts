@@ -68,35 +68,51 @@ install_docker() {
 	sudo systemctl enable --now docker
 }
 
-install_alacritty() {
-	sudo apt install -y cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
-	cd /tmp
-	git clone https://github.com/alacritty/alacritty.git
-	cd alacritty
-	cargo build --release
-	sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
-	sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
-	sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-	sudo desktop-file-install extra/linux/Alacritty.desktop
-	sudo update-desktop-database
-	mkdir -p $fish_complete_path[1]
-	cp extra/completions/alacritty.fish $fish_complete_path[1]/alacritty.fish
-}
-
 install_flatpaks() {
 	sudo apt install -y flatpak
 	sudo apt install -y gnome-software-plugin-flatpak
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-	flatpak install flathub com.bitwarden.desktop
-	flatpak install flathub app.ytmdesktop.ytmdesktop
+	flatpak install -y flathub com.bitwarden.desktop
+	flatpak install -y flathub app.ytmdesktop.ytmdesktop
 }
 
-install_meslo() {
+install_wezterm() {
+	curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+	echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+	sudo apt update && sudo apt install -y wezterm
+	echo 'local wezterm = require("wezterm")
+    local act = wezterm.action
+    local config = {}
+    if wezterm.config_builder then config = wezterm.config_builder() end
+
+    config.color_scheme = "Tokyo Night"
+    config.font = wezterm.font_with_fallback({
+        { family = "IosevkaTerm Nerd Font", scale = 1.2}
+    })
+    config.window_background_opacity = 0.9
+    config.leader = {key = "a", mods = "CTRL", timeout_milliseconds = 1000}
+    config.keys = {
+        {key = "a", mods = "LEADER | CTRL", action = act.SendKey { key = "a", mods = "CTRL"}},
+        { key = "s", mods = "LEADER", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
+        { key = "v", mods = "LEADER", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+        {key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left")},
+        {key = "j", mods = "LEADER", action = act.ActivatePaneDirection("Down")},
+        {key = "k", mods = "LEADER", action = act.ActivatePaneDirection("Up")},
+        {key = "l", mods = "LEADER", action = act.ActivatePaneDirection("Right")},
+        { key = "q", mods = "LEADER", action = act.CloseCurrentPane { confirm = false } },
+        {key = "t", mods = "LEADER", action = act.SpawnTab "CurrentPaneDomain"},
+    }
+    -- Uncomment this if you are running in wsl
+    config.default_domain = "WSL:Ubuntu"
+    return config' >~/.config/wezterm/wezterm.lua
+}
+
+install_iosevka() {
 	cd /tmp
-	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
-	unzip Meslo.zip
-	sudo mkdir /usr/share/fonts/meslo
-	sudo mv *.ttf /usr/share/fonts/meslo
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/IosevkaTerm.zip
+	unzip Iosevka.zip
+	sudo mkdir /usr/share/fonts/iosevka
+	sudo mv *.ttf /usr/share/fonts/iosevka
 }
 
 last_things() {
@@ -115,11 +131,11 @@ fetch_updates
 install_base_dev
 install_rust_alternatives
 install_starship
+install_wezterm
 install_lazyvim
-install_alacritty
 install_flatpaks
 install_docker
-install_meslo
+install_iosevka
 install_asdf
 cd "$cwd"
 ./debian-based-fish.sh
