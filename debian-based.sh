@@ -90,7 +90,8 @@ install_wezterm() {
 
     config.color_scheme = "Tokyo Night"
     config.font = wezterm.font_with_fallback({
-        { family = "IosevkaTerm Nerd Font", scale = 1.2}
+        { family = "IosevkaTerm Nerd Font", scale = 1.2},
+        { family = "MesloLGS NF", scale = 1.3},
     })
     config.window_background_opacity = 0.9
     config.leader = {key = ";", mods = "CTRL", timeout_milliseconds = 1000}
@@ -110,12 +111,16 @@ install_wezterm() {
     return config' >~/.config/wezterm/wezterm.lua
 }
 
-install_iosevka() {
+install_fonts() {
 	cd /tmp
 	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/IosevkaTerm.zip
 	unzip Iosevka.zip
 	mkdir -p ~/.local/share/fonts/iosevka/
 	mv *.ttf ~/.local/share/fonts/iosevka
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
+	unzip Meslo.zip
+	mkdir -p ~/.local/share/fonts/meslo/
+	mv *.ttf ~/.local/share/fonts/meslo
 }
 
 last_things() {
@@ -138,7 +143,7 @@ install_wezterm
 install_lazyvim
 install_flatpaks
 install_docker
-install_iosevka
+install_fonts
 install_asdf
 cd "$cwd"
 ./debian-based-fish.sh
