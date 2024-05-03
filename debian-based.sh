@@ -72,6 +72,8 @@ install_flatpaks() {
 	sudo apt install -y flatpak
 	sudo apt install -y gnome-software-plugin-flatpak
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	flatpak install -y flathub com.github.tchx84.Flatseal
+	flatpak install -y flathub com.microsoft.Edge
 	flatpak install -y flathub com.bitwarden.desktop
 	flatpak install -y flathub app.ytmdesktop.ytmdesktop
 }
@@ -93,7 +95,7 @@ install_wezterm() {
     config.window_background_opacity = 0.9
     config.leader = {key = "a", mods = "CTRL", timeout_milliseconds = 1000}
     config.keys = {
-        {key = "a", mods = "LEADER | CTRL", action = act.SendKey { key = "a", mods = "CTRL"}},
+        {key = ";", mods = "LEADER | CTRL", action = act.SendKey { key = "a", mods = "CTRL"}},
         { key = "s", mods = "LEADER", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
         { key = "v", mods = "LEADER", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
         {key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left")},
@@ -112,8 +114,8 @@ install_iosevka() {
 	cd /tmp
 	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/IosevkaTerm.zip
 	unzip Iosevka.zip
-	sudo mkdir /usr/share/fonts/iosevka
-	sudo mv *.ttf /usr/share/fonts/iosevka
+	mkdir -p ~/.local/share/fonts/iosevka/
+	mv *.ttf ~/.local/share/fonts/iosevka
 }
 
 last_things() {
