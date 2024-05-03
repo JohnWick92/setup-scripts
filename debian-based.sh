@@ -90,6 +90,7 @@ install_wezterm() {
 
     config.color_scheme = "Tokyo Night"
     config.font = wezterm.font_with_fallback({
+        { family = "JetBrains Mono", scale = 1.2},
         { family = "IosevkaTerm Nerd Font", scale = 1.2},
         { family = "MesloLGS NF", scale = 1.3},
     })

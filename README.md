@@ -7,9 +7,7 @@
 ## Debian based was built based on ubuntu and RHEL based was built based on fedora
 ## Check if your based distro need some tweaks on the script before run it
 
-## Create alacritty config in ~/.config/alacritty.toml and add
-`[window]
-  opacity = 0.7
-`
+# Download JetBrains Mono from JetBrains and install it
+
 ## In order to have a transparent vim
 ## setup your gitconfig and that is all
