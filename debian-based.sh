@@ -21,17 +21,14 @@ install_rust_alternatives() {
 	curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 	source ~/.cargo/env
 	cargo install ripgrep zoxide fd-find tealdeer procs git-delta bat exa du-dust tokei ytop rmesg grex
-	echo "zoxide init fish | source" >>~/.config/fish/config.fish
 }
 
 install_asdf() {
 	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
-	echo 'source ~/.asdf/asdf.fish' | cat - ~/.config/fish/config.fish >temp && mv temp ~/.config/fish/config.fish
 }
 
 install_starship() {
 	curl -sS https://starship.rs/install.sh | sh
-	echo "starship init fish | source" >>~/.config/fish/config.fish
 }
 
 install_lazyvim() {
@@ -47,25 +44,8 @@ install_lazyvim() {
 	git clone https://github.com/JohnWick92/my-lazyvim ~/.config/nvim/
 }
 
-install_docker() {
-	# Add Docker's official GPG key:
-	sudo apt update
-	sudo apt install -y ca-certificates curl
-	sudo install -m 0755 -d /etc/apt/keyrings
-	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-	sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-	# Add the repository to Apt sources:
-	echo \
-		"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
-		sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
-	sudo apt update
-	sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-	sudo groupadd docker
-	sudo usermod -aG docker $USER
-	# newgrp docker
-	sudo systemctl enable --now docker
+install_podman() {
+	sudo apt install podman podman-compose -y
 }
 
 install_flatpaks() {
@@ -95,9 +75,9 @@ install_wezterm() {
         { family = "MesloLGS NF", scale = 1.3},
     })
     config.window_background_opacity = 0.9
-    config.leader = {key = ";", mods = "CTRL", timeout_milliseconds = 1000}
+    config.leader = {key = ";", mods = "CTRL", timeout_milliseconds = 2000}
     config.keys = {
-        {key = ";", mods = "LEADER | CTRL", action = act.SendKey { key = "a", mods = "CTRL"}},
+        {key = ";", mods = "LEADER | CTRL", action = act.SendKey { key = ";", mods = "CTRL"}},
         { key = "s", mods = "LEADER", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
         { key = "v", mods = "LEADER", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
         {key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left")},
@@ -108,7 +88,7 @@ install_wezterm() {
         {key = "t", mods = "LEADER", action = act.SpawnTab "CurrentPaneDomain"},
     }
     -- Uncomment this if you are running in wsl
-    -- config.default_domain = "WSL:Ubuntu"
+    -- config.default_domain = "WSL:Ubuntu-24.04"
     return config' >~/.config/wezterm/wezterm.lua
 }
 
@@ -118,15 +98,13 @@ install_fonts() {
 	unzip Iosevka.zip
 	mkdir -p ~/.local/share/fonts/iosevka/
 	mv *.ttf ~/.local/share/fonts/iosevka
-	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
-	unzip Meslo.zip
-	mkdir -p ~/.local/share/fonts/meslo/
-	mv *.ttf ~/.local/share/fonts/meslo
+	sudo bash -c "$(curl -LSs https://github.com/dfmgr/installer/raw/main/install.sh)"
+	bash -c "$(curl -LSs https://github.com/fontmgr/MesloLGSNF/raw/main/install.sh)"
+	sudo fontmgr install MesloLGSNF
+	sudo fontmgr update MesloLGSNF
 }
 
 last_things() {
-	echo "To export path to fish enter in fish shell and run this commands:"
-	echo "fish_add_path ~/.local/bin"
 	echo "To fish be your default shell you need to reboot the machine"
 	echo "Open neovim wait until it download the plugins close and run it again"
 	echo "See the git-delta to set up delta to your git config"
@@ -143,9 +121,11 @@ install_starship
 install_wezterm
 install_lazyvim
 install_flatpaks
-install_docker
+install_podman
 install_fonts
 install_asdf
 cd "$cwd"
 ./debian-based-fish.sh
 last_things
+echo "starship init fish | source" >>~/.config/fish/config.fish
+echo "zoxide init fish | source" >>~/.config/fish/config.fish

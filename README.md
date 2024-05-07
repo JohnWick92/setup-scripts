@@ -1,13 +1,6 @@
-# This scripts install all things that I use to develop
+# This scripts install some languages and tools that I use to develop
 
-## Do not forget to give execution permissions to the desired scripts
+## Debian based was made in a Ubuntu-24.04 and also in wsl
+## Rhel based was made in a Fedora 40
 
-# When the rust install ask to proceed or change or cancel type 2 hit enter for every option except the modify path, type n instead and hit enter
-
-## Debian based was built based on ubuntu and RHEL based was built based on fedora
-## Check if your based distro need some tweaks on the script before run it
-
-# Download JetBrains Mono from JetBrains and install it
-
-## In order to have a transparent vim
-## setup your gitconfig and that is all
+## JetBrains Mono need to be manually installed
