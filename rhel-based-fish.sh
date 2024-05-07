@@ -2,9 +2,7 @@
 
 function install_base_languages -d "install base languages"
 fish_add_path ~/.cargo/bin/
-mkdir -p ~/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 echo 'source ~/.asdf/asdf.fish' | cat - ~/.config/fish/config.fish >temp && mv temp ~/.config/fish/config.fish
-podman completion -f ~/.config/fish/completions/podman.fish fish
 source ~/.config/fish/config.fish
 asdf plugin add ruby
 asdf plugin add java
@@ -19,3 +17,6 @@ npm i -g yarn
 end
 
 install_base_languages
+mkdir -p ~/.config/fish/completionss
+podman completion -f ~/.config/fish/
+and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completioncompletions/podman.fish fish
