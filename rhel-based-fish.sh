@@ -17,6 +17,6 @@ npm i -g yarn
 end
 
 install_base_languages
-mkdir -p ~/.config/fish/completionss
-podman completion -f ~/.config/fish/
-and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completioncompletions/podman.fish fish
+mkdir -p ~/.config/fish/completions
+and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+podman completion -f ~/.config/fish/completions/podman.fish fish
