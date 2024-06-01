@@ -1,0 +1,22 @@
+yay -S nautilus xdg-desktop-portal-gtk microsoft-edge-stable bitwarden btop wezterm neovim lazygit podman podman-compose fish
+chsh -s /usr/bin/fish
+
+install rust alternatives
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+cargo install ripgrep zoxide fd-find tealdeer procs git-delta bat exa du-dust tokei ytop rmesg grex
+curl -sS https://starship.rs/install.sh | sh
+
+asdf setup
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+fish_add_path ~/.cargo/bin/
+echo 'source ~/.asdf/asdf.fish' | cat - ~/.config/fish/config.fish >temp && mv temp ~/.config/fish/config.fish
+source ~/.config/fish/config.fish
+asdf install ruby 3.2.3 && asdf global ruby 3.2.3
+asdf install java openjdk-17 && asdf global java openjdk-17
+asdf install nodejs latest && asdf global nodejs latest
+asdf install golang latest && asdf global golang latest
+npm i -g yarn
+
+mkdir -p ~/.config/fish/completions
+and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+podman completion -f ~/.config/fish/completions/podman.fish fish
