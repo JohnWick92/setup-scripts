@@ -1,0 +1,252 @@
+
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+#set mod key to super
+set $mod Mod4
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+# floating_modifier $mod normal
+
+#key bindings bindings go here. Using --to-code so that they work in different keyboard layouts
+bindsym $mod+shift+e exit
+   bindsym $mod+Return exec wezterm
+
+    #program launcher
+    #$mod+d exec urxvtc --title menu_term -e menu.sh
+    bindsym $mod+space exec rofi -show run
+    #clipboard history script similar to menu, but disabled for now
+    #wl-clipboard-history doesn't allow copy/pasting of images or files
+    #$mod+c exec urxvtc --title menu_term -e clipboard
+    bindsym $mod+b exec microsoft-edge-stable
+    
+     # kill focused window
+    bindsym $mod+c kill
+
+    # lock screen
+    bindsym $mod+g exec lock
+
+    # $mod+shift+e exec sway exit
+
+    # lock screen and turn screen off
+    # $mod+shift+g exec lock-screen-off
+
+ 
+    # change focus
+    bindsym $mod+h focus left
+    bindsym $mod+j focus down
+    bindsym $mod+k focus up
+    bindsym $mod+l focus right
+
+    # alternatively, you can use the cursor keys:
+    bindsym $mod+left focus left
+    bindsym $mod+down focus down
+    bindsym $mod+up focus up
+    bindsym $mod+right focus right
+
+    # move focused window
+    bindsym $mod+shift+h move left
+    bindsym $mod+shift+j move down
+    bindsym $mod+shift+k move up
+    bindsym $mod+shift+l move right
+
+    # alternatively, you can use the cursor keys:
+    bindsym $mod+shift+left move left
+    bindsym $mod+shift+down move down
+    bindsym $mod+shift+up move up
+    bindsym $mod+shift+right move right
+
+    # split in horizontal orientation
+    bindsym $mod+shift+v splith
+
+    # split in vertical orientation
+    bindsym $mod+v splitv
+
+    # enter fullscreen mode for the focused container
+    bindsym $mod+f fullscreen
+
+    # change container layout (stacked, tabbed, toggle split)
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+
+    # toggle tiling / floating
+    bindsym $mod+shift+f floating toggle
+
+    # change focus between tiling / floating windows
+    bindsym $mod+o focus mode_toggle
+
+    # focus the parent container
+    bindsym $mod+a focus parent
+
+    # focus the child container
+    bindsym $mod+shift+a focus child
+
+    # switch to workspace
+    bindsym $mod+1 workspace 1
+    bindsym $mod+2 workspace 2
+    bindsym $mod+3 workspace 3
+    bindsym $mod+4 workspace 4
+    bindsym $mod+5 workspace 5
+    bindsym $mod+6 workspace 6
+    bindsym $mod+7 workspace 7
+    bindsym $mod+8 workspace 8
+    bindsym $mod+9 workspace 9
+    bindsym $mod+0 workspace 10
+    bindsym $mod+comma exec prev-workspace 
+    bindsym $mod+period exec next-workspace
+
+
+    # move focused container to workspace
+    bindsym $mod+shift+1 move container to workspace 1
+    bindsym $mod+shift+2 move container to workspace 2
+    bindsym $mod+Shift+3 move container to workspace 3
+    bindsym $mod+Shift+4 move container to workspace 4
+    bindsym $mod+Shift+5 move container to workspace 5
+    bindsym $mod+Shift+6 move container to workspace 6
+    bindsym $mod+Shift+7 move container to workspace 7
+    bindsym $mod+Shift+8 move container to workspace 8
+    bindsym $mod+Shift+9 move container to workspace 9
+    bindsym $mod+Shift+0 move container to workspace 10
+    bindsym $mod+greater exec next-workspace-move-container
+    bindsym $mod+Shift+comma exec prev-workspace-move-container
+
+    # reload the configuration file
+    bindsym $mod+shift+c reload
+
+    #resize key
+    bindsym $mod+r mode "resize"
+
+    #flashfocus key
+    bindsym $mod+n exec nc_flash_window
+
+    #screenshot controls (uses my screenshot scripts)
+    bindsym Print exec screenshot
+
+       #open a file manager
+    bindsym $mod+e exec nautilus --new-window $HOME
+
+
+    #open pulsemixer dialog
+    bindsym $mod+shift+m exec termite --title pulsemixer_term -e pulsemixer
+
+    # Pulse Audio controls, requires ponymix
+    # XF86AudioRaiseVolume exec ponymix --sink --max-volume 150 increase 5 #increase sound volume
+    # XF86AudioLowerVolume exec ponymix --sink --max-volume 150 decrease 5 #decrease sound volume
+    # XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+    #keybind for PTT applications like mumble, discord, because it doesn't work properly under wayland
+    bindsym $mod+tab exec mute-toggle
+
+    # Sreen brightness controls
+    # XF86MonBrightnessUp exec light -A 10 #increase screen brightness
+    # XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
+# }
+
+# resize window (you can also use the mouse for that)
+# mode "resize" {
+#         # These bindings trigger as soon as you enter the resize mode
+#
+#         # Pressing left will shrink the window’s width.
+#         # Pressing right will grow the window’s width.
+#         # Pressing up will shrink the window’s height.
+#         # Pressing down will grow the window’s height.
+#         bindsym --to-code {
+#             bindsym h resize shrink width 10 px or 10 ppt
+#             bindsym j resize grow height 10 px or 10 ppt
+#             bindsym k resize shrink height 10 px or 10 ppt
+#             bindsym l resize grow width 10 px or 10 ppt
+#
+#             # same bindings, but for the arrow keys
+#             bindsym Left resize shrink width 10 px or 10 ppt
+#             bindsym Down resize grow height 10 px or 10 ppt
+#             bindsym Up resize shrink height 10 px or 10 ppt
+#             bindsym Right resize grow width 10 px or 10 ppt
+#
+#             # back to normal: Enter or Escape
+#             Return mode "default"
+#             Escape mode "default"
+#         }
+# }
+
+#window rules for my menu popup and drop down terminal using the scratchpad
+for_window [title="^menu_term$"] floating enable, resize set width 50 ppt height 50 ppt, move center
+for_window [title="^screensaver$"] fullscreen toggle global
+for_window [title="^drop_down_term$"] floating enable, resize set width 100 ppt height 60 ppt, move position 0px 0px, move scratchpad
+for_window [title="^wifi_term$"] floating enable, resize set width 36 ppt height 39 ppt, move center
+for_window [title="^pulsemixer_term$"] floating enable, resize set width 36 ppt height 39 ppt, move center
+#for_window [app_id="^mpv$"] floating enable
+
+
+#general settings
+gaps inner 5
+gaps outer 0
+#hide mouse on inactivity
+# seat * hide_cursor 10000
+default_floating_border pixel 0
+default_border pixel 0
+hide_edge_borders both
+focus_follows_mouse no
+# border colors
+client.focused		#ff6e67 #ff6e67 #ff6e67 #ffc1bd #ff6e67
+#client.focused          #bababa #bababa #bababa #dadada #bababa
+client.unfocused	#b8b8b8 #b8b8b8 #b8b8b8 #b8b8b8 #b8b8b8
+client.focused_inactive	#b8b8b8 #b8b8b8 #b8b8b8 #b8b8b8 #b8b8b8
+
+
+#client.unfocused	#262626 #262626 #262626 #262626 #262626
+#client.focused_inactive	#262626 #262626 #262626 #262626 #262626
+
+
+#exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+#exec waybar
+bar {
+    font pango: SauceCodePro Nerd Font 9
+    i3bar_command i3status
+    output primary
+    position top
+    status_command i3blocks
+    strip_workspace_numbers yes
+    tray_output nonprimary
+
+    colors {
+        background #282A36
+        statusline #F8F8F2
+        separator  #44475A
+
+        focused_workspace  #44475A #44475A #F8F8F2
+        active_workspace   #282A36 #44475A #F8F8F2
+        inactive_workspace #282A36 #282A36 #BFBFBF
+        urgent_workspace   #FF5555 #FF5555 #F8F8F2
+        binding_mode       #FF5555 #FF5555 #F8F8F2
+    }
+}
+
+bar {
+    font pango: JetBrains Mono 10
+    i3bar_command i3bar
+    output nonprimary
+    position top
+    strip_workspace_numbers yes
+    tray_output DP-4
+
+    colors {
+        background #282A36
+        statusline #F8F8F2
+        separator  #44475A
+
+        focused_workspace  #44475A #44475A #F8F8F2
+        active_workspace   #282A36 #44475A #F8F8F2
+        inactive_workspace #282A36 #282A36 #BFBFBF
+        urgent_workspace   #FF5555 #FF5555 #F8F8F2
+        binding_mode       #FF5555 #FF5555 #F8F8F2
+    }
+}
+# keyboard layouts
+# input * xkb_layout "us"
+# input * xkb_variant "intl"
+
+# wallpaper settings
+exec feh --bg-scale /usr/share/wallpapers/sunset\ on\ a\ beach.avif
+# output "*" bg $HOME/Pictures/wallpaper.avif fill
+#exec termite --title drop_down_term
+exec flashfocus -t 200 -o 0.4 --no-flash-on-focus
+

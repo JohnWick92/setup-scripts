@@ -1,0 +1,2 @@
+Install i3, i3status, rofi and feh
+then copy i3 folder to $HOME/.config

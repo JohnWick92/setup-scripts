@@ -1,0 +1,3 @@
+Ensure needed packages are installed
+sway, nautilus, waybar, xdg-desktop-portal-gtk, microsoft-edge-stable(non flatpak), wezterm, wofi, neovim(>= 0.10) and sway-nvdia if using a nvidia gpu
+copy the folders to your home .config
